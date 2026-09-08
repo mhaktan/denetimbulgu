@@ -348,10 +348,12 @@ namespace DenetimBulgu.Audits
                     root.AuditTeamMembers == null ? new List<AuditTeamMember>() : root.AuditTeamMembers.ToList()),
                 Findings = ObjectMapper.Map<List<FindingDto>>(
                     root.Findings == null ? new List<Finding>() : root.Findings.ToList()),
+                // ApprovalRecord alan adlari: EntityType (isim) ve EntityId (STRING).
+                // Once EntityName/long varsayilmisti — CS1061 + CS0019 veriyordu.
                 ApprovalHistory = ObjectMapper.Map<List<ApprovalRecordDto>>(
                     _approvalRepo.GetAll()
-                        .Where(a => a.EntityName == "Audit" && a.EntityId == Convert.ToInt64(id))
-                        .OrderBy(a => a.Id).ToList()),
+                        .Where(a => a.EntityType == "Audit" && a.EntityId == id.ToString())
+                        .OrderBy(a => a.StepIndex).ToList()),
             };
         }
 

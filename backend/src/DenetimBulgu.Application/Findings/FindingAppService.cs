@@ -395,10 +395,12 @@ namespace DenetimBulgu.Findings
                 Data = ObjectMapper.Map<FindingDto>(root),
                 CorrectiveActions = ObjectMapper.Map<List<CorrectiveActionDto>>(
                     root.CorrectiveActions == null ? new List<CorrectiveAction>() : root.CorrectiveActions.ToList()),
+                // ApprovalRecord alan adlari: EntityType (isim) ve EntityId (STRING).
+                // Once EntityName/long varsayilmisti — CS1061 + CS0019 veriyordu.
                 ApprovalHistory = ObjectMapper.Map<List<ApprovalRecordDto>>(
                     _approvalRepo.GetAll()
-                        .Where(a => a.EntityName == "Finding" && a.EntityId == Convert.ToInt64(id))
-                        .OrderBy(a => a.Id).ToList()),
+                        .Where(a => a.EntityType == "Finding" && a.EntityId == id.ToString())
+                        .OrderBy(a => a.StepIndex).ToList()),
             };
         }
 

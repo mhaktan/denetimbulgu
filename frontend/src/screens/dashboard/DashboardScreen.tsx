@@ -270,7 +270,7 @@ export const DashboardScreen: React.FC = () => {
           </div>
         </div>
         <div style={{ gridColumn: 'span 6' }}>
-          {unknown_blockLoading ? (
+          {breakdown_finding_2Loading ? (
             <UiCard header="Seviye Bazında Açık Bulgu Sayıları" bodyStyle={{ padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 280 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 32, height: 32, border: '3px solid #e0e0e0', borderTopColor: '#1976d2', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
@@ -280,7 +280,7 @@ export const DashboardScreen: React.FC = () => {
           ) : (
           <UiCard header="Seviye Bazında Açık Bulgu Sayıları" bodyStyle={{ padding: 16 }}>
             <ResponsiveContainer width="100%" height={280}>
-                  <BarChart data={unknown_blockData}>
+                  <BarChart data={breakdown_finding_2Data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="label" />
                     <YAxis />
@@ -292,7 +292,7 @@ export const DashboardScreen: React.FC = () => {
           )}
         </div>
         <div style={{ gridColumn: 'span 6' }}>
-          {unknown_blockLoading ? (
+          {breakdown_finding_3Loading ? (
             <UiCard header="Birim Bazında Açık Bulgu Dağılımı" bodyStyle={{ padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 280 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 32, height: 32, border: '3px solid #e0e0e0', borderTopColor: '#1976d2', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
@@ -303,7 +303,7 @@ export const DashboardScreen: React.FC = () => {
           <UiCard header="Birim Bazında Açık Bulgu Dağılımı" bodyStyle={{ padding: 16 }}>
             <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
-                    <Pie data={unknown_blockData} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
+                    <Pie data={breakdown_finding_3Data} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
                       <Cell fill="#1976d2" />
                       <Cell fill="#ff9800" />
                       <Cell fill="#4caf50" />
@@ -317,7 +317,7 @@ export const DashboardScreen: React.FC = () => {
           )}
         </div>
         <div style={{ gridColumn: 'span 6' }}>
-          {unknown_blockLoading ? (
+          {breakdown_finding_4Loading ? (
             <UiCard header="Bulgu Durumu Dağılımı" bodyStyle={{ padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', height: 280 }}>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
                 <div style={{ width: 32, height: 32, border: '3px solid #e0e0e0', borderTopColor: '#1976d2', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
@@ -328,7 +328,7 @@ export const DashboardScreen: React.FC = () => {
           <UiCard header="Bulgu Durumu Dağılımı" bodyStyle={{ padding: 16 }}>
             <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
-                    <Pie data={unknown_blockData} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
+                    <Pie data={breakdown_finding_4Data} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
                       <Cell fill="#1976d2" />
                       <Cell fill="#ff9800" />
                       <Cell fill="#4caf50" />
