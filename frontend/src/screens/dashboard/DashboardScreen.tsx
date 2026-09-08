@@ -262,7 +262,7 @@ export const DashboardScreen: React.FC = () => {
               ) : (
               <UiCard bodyStyle={{ padding: 20 }}>
                 <div style={{ fontSize: 12, color: '#888', marginBottom: 4 }}>Ortalama Bulgu Kapanış Süresi (gün)</div>
-                <div style={{ fontSize: 28, fontWeight: 700, color: '#4caf50' }}>{metric_finding_1Data?.['result'] ?? '—'}</div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: '#4caf50' }}>{(metric_finding_1Data?.['result'] as string | number) ?? '—'}</div>
               </UiCard>
               )}
 
