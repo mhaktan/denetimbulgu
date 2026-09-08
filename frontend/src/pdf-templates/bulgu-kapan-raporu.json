@@ -1,11 +1,11 @@
 {
-  "id": "report-finding-1788884825610",
+  "id": "report-finding-1788903799257",
   "name": "Bulgu Kapanış Raporu",
   "orientation": "portrait",
   "pageSize": "a4",
   "elements": [
     {
-      "id": "pdf-mtsvu5fu-11",
+      "id": "pdf-mtt74tlk-11",
       "type": "header",
       "x": 20,
       "y": 25,
@@ -18,7 +18,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-12",
+      "id": "pdf-mtt74tlk-12",
       "type": "divider",
       "x": 20,
       "y": 39,
@@ -29,7 +29,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-13",
+      "id": "pdf-mtt74tll-13",
       "type": "textbox",
       "x": 20,
       "y": 45,
@@ -42,7 +42,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-14",
+      "id": "pdf-mtt74tll-14",
       "type": "textbox",
       "x": 20,
       "y": 56,
@@ -55,7 +55,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-15",
+      "id": "pdf-mtt74tll-15",
       "type": "textbox",
       "x": 20,
       "y": 66,
@@ -68,7 +68,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-16",
+      "id": "pdf-mtt74tll-16",
       "type": "textbox",
       "x": 20,
       "y": 76,
@@ -81,7 +81,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-17",
+      "id": "pdf-mtt74tll-17",
       "type": "textbox",
       "x": 20,
       "y": 86,
@@ -94,7 +94,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-18",
+      "id": "pdf-mtt74tll-18",
       "type": "textbox",
       "x": 20,
       "y": 96,
@@ -107,7 +107,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-19",
+      "id": "pdf-mtt74tll-19",
       "type": "textbox",
       "x": 20,
       "y": 106,
@@ -120,7 +120,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-20",
+      "id": "pdf-mtt74tll-20",
       "type": "textbox",
       "x": 20,
       "y": 118,
@@ -133,7 +133,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-21",
+      "id": "pdf-mtt74tll-21",
       "type": "table",
       "x": 20,
       "y": 129,
@@ -174,7 +174,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-22",
+      "id": "pdf-mtt74tll-22",
       "type": "textbox",
       "x": 20,
       "y": 210,
@@ -187,7 +187,7 @@
       }
     },
     {
-      "id": "pdf-mtsvu5fu-23",
+      "id": "pdf-mtt74tll-23",
       "type": "table",
       "x": 20,
       "y": 221,

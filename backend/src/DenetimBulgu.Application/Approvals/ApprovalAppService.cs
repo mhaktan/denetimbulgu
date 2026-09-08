@@ -70,11 +70,23 @@ namespace DenetimBulgu.Approvals
         }
 
         // Helper: role names assigned to a user (used to expand "My Tasks" with role-broadcast records).
+        /// <summary>
+        /// Kullanicinin rol ADLARI. Navigation (ur.Role.Name) KULLANILMAZ: DbContext'te
+        /// UserRole -> AppRole iliskisi eslenmemisse EF bos isim donduruyor ve rol bazli
+        /// atanmis onaylar "My Tasks"ta hic gorunmuyor (sessiz hata, derleme kirilmiyor).
+        /// Bunun yerine iki adimda, id uzerinden okunur.
+        /// </summary>
         private List<string> GetUserRoleNames(long userId)
         {
-            return _userRoleRepo.GetAll()
+            var roleIds = _userRoleRepo.GetAll()
                 .Where(ur => ur.UserId == userId)
-                .Select(ur => ur.Role.Name)
+                .Select(ur => ur.RoleId)
+                .ToList();
+            if (roleIds.Count == 0) return new List<string>();
+
+            return _roleRepo.GetAll()
+                .Where(r => roleIds.Contains(r.Id))
+                .Select(r => r.Name)
                 .Where(n => n != null)
                 .ToList();
         }
