@@ -20,7 +20,7 @@ namespace DenetimBulgu.Entities
 
         public bool IsActive { get; set; }
 
-        public long DepartmentId { get; set; }
+        public long? DepartmentId { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         public virtual Department ParentDepartment { get; set; }
