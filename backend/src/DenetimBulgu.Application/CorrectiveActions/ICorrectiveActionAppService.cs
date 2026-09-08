@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using DenetimBulgu.Analytics.Dto;
+using DenetimBulgu.StateMachine.Dto;
 using DenetimBulgu.CorrectiveActions.Dto;
 
 namespace DenetimBulgu.CorrectiveActions

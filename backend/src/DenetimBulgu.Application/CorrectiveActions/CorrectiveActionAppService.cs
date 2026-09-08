@@ -11,6 +11,7 @@ using Abp.Linq.Extensions;
 using DenetimBulgu.Entities;
 using DenetimBulgu.CorrectiveActions.Dto;
 using DenetimBulgu.Analytics.Dto;
+using DenetimBulgu.StateMachine.Dto;
 using DenetimBulgu.ActionProgressNotes.Dto;
 using DenetimBulgu.Evidences.Dto;
 using DenetimBulgu.Approvals.Dto;
