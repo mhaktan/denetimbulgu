@@ -41,12 +41,19 @@ namespace DenetimBulgu.Web.Host.Controllers
 
                 using var db = new DenetimBulguDbContext(optionsBuilder.Options);
 
+                // !u.IsDeleted SART: burada ham DbContext kullaniliyor, ABP'nin soft-delete
+                // filtresi DEVREDE DEGIL. AppUser FullAuditedEntity oldugu icin silme
+                // soft-delete; filtre olmadan iki sorun cikiyordu:
+                //   1) GUVENLIK: silinmis kullanici hala giris yapabiliyor.
+                //   2) Ayni kullanici adi yeniden olusturulunca FirstOrDefault ESKI
+                //      (silinmis) satiri seciyor, token yanlis user id tasiyor ve
+                //      rol/onay atamalari hic eslesmiyor.
                 var user = db.AppUsers
                     .Include(u => u.UserRoles).ThenInclude(ur => ur.Role).ThenInclude(r => r.RolePermissions)
                     .FirstOrDefault(u =>
                         (u.UserName == model.UserNameOrEmailAddress ||
                          u.EmailAddress == model.UserNameOrEmailAddress) &&
-                        u.IsActive);
+                        u.IsActive && !u.IsDeleted);
 
                 if (user == null)
                 {
