@@ -1,0 +1,243 @@
+{
+  "id": "report-finding-1788880607495",
+  "name": "Bulgu Kapanış Raporu",
+  "orientation": "portrait",
+  "pageSize": "a4",
+  "elements": [
+    {
+      "id": "pdf-mtstbqpz-11",
+      "type": "header",
+      "x": 20,
+      "y": 25,
+      "width": 170,
+      "height": 10,
+      "props": {
+        "text": "Bulgu Kapanış Raporu",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-12",
+      "type": "divider",
+      "x": 20,
+      "y": 39,
+      "width": 170,
+      "height": 2,
+      "props": {
+        "lineColor": "#999999"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-13",
+      "type": "textbox",
+      "x": 20,
+      "y": 45,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Bulgu Bilgileri",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-14",
+      "type": "textbox",
+      "x": 20,
+      "y": 56,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Title: {{data.title}}",
+        "binding": "data.title",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-15",
+      "type": "textbox",
+      "x": 20,
+      "y": 66,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Description: {{data.description}}",
+        "binding": "data.description",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-16",
+      "type": "textbox",
+      "x": 20,
+      "y": 76,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Detected Date: {{data.detectedDate}}",
+        "binding": "data.detectedDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-17",
+      "type": "textbox",
+      "x": 20,
+      "y": 86,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Due Date: {{data.dueDate}}",
+        "binding": "data.dueDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-18",
+      "type": "textbox",
+      "x": 20,
+      "y": 96,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Closed Date: {{data.closedDate}}",
+        "binding": "data.closedDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-19",
+      "type": "textbox",
+      "x": 20,
+      "y": 106,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Status: {{data.status}}",
+        "binding": "data.status",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-20",
+      "type": "textbox",
+      "x": 20,
+      "y": 118,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Düzeltici Aksiyonlar",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-21",
+      "type": "table",
+      "x": 20,
+      "y": 129,
+      "width": 170,
+      "height": 77,
+      "props": {
+        "binding": "data.correctiveActions",
+        "columns": [
+          {
+            "key": "rootCauseAnalysis",
+            "label": "Root Cause Analysis",
+            "width": 34
+          },
+          {
+            "key": "actionDescription",
+            "label": "Action Description",
+            "width": 34
+          },
+          {
+            "key": "targetDate",
+            "label": "Target Date",
+            "width": 34
+          },
+          {
+            "key": "actualClosureDate",
+            "label": "Actual Closure Date",
+            "width": 34
+          },
+          {
+            "key": "status",
+            "label": "Status",
+            "width": 34
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-22",
+      "type": "textbox",
+      "x": 20,
+      "y": 210,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Onay Geçmişi",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-23",
+      "type": "table",
+      "x": 20,
+      "y": 221,
+      "width": 170,
+      "height": 56,
+      "props": {
+        "binding": "data.approvalHistory",
+        "columns": [
+          {
+            "key": "stepName",
+            "label": "Adım",
+            "width": 45
+          },
+          {
+            "key": "action",
+            "label": "Aksiyon",
+            "width": 30
+          },
+          {
+            "key": "userName",
+            "label": "Kullanıcı",
+            "width": 45
+          },
+          {
+            "key": "actionDate",
+            "label": "Tarih",
+            "width": 50
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    }
+  ],
+  "apiBinding": {
+    "method": "GET",
+    "url": "api/services/app/Finding/GetReportData?id={id}",
+    "params": [
+      {
+        "name": "id"
+      }
+    ]
+  },
+  "headerConfig": {
+    "enabled": true,
+    "text": "Bulgu Kapanış Raporu",
+    "fontSize": 9
+  },
+  "pageNumberConfig": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,375 @@
+[
+  {
+    "id": "flow-AuditPlan-approval",
+    "name": "AuditPlan Approval Flow",
+    "edges": [
+      {
+        "id": "gen_1788880484790_3",
+        "sourceNodeId": "gen_1788880484790_1",
+        "targetNodeId": "gen_1788880484790_2"
+      },
+      {
+        "id": "gen_1788880484790_5",
+        "branch": "true",
+        "sourceNodeId": "gen_1788880484790_2",
+        "targetNodeId": "gen_1788880484790_4"
+      },
+      {
+        "id": "gen_1788880484790_7",
+        "sourceNodeId": "gen_1788880484790_4",
+        "targetNodeId": "gen_1788880484790_6"
+      },
+      {
+        "id": "gen_1788880484790_10",
+        "sourceNodeId": "gen_1788880484790_8",
+        "targetNodeId": "gen_1788880484790_9"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "gen_1788880484790_1",
+        "type": "trigger",
+        "label": "On AuditPlan Submit",
+        "trigger": {
+          "type": "on-field-change",
+          "fieldName": "status",
+          "resourceName": "AuditPlan"
+        },
+        "position": {
+          "x": 300,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1788880484790_2",
+        "type": "condition",
+        "label": "Status = Draft?",
+        "position": {
+          "x": 300,
+          "y": 160
+        },
+        "condition": {
+          "logic": "and",
+          "rules": [
+            {
+              "field": "triggerData.status",
+              "value": "0",
+              "operator": "equals"
+            }
+          ]
+        }
+      },
+      {
+        "id": "gen_1788880484790_4",
+        "type": "approval",
+        "label": "AuditPlan Approval",
+        "approval": {
+          "steps": [
+            {
+              "name": "Kalite Müdürü Onayı",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "QualityManager"
+            }
+          ],
+          "onCompleteEvent": "AuditPlan-approval-completed",
+          "trackRevisionHistory": false
+        },
+        "position": {
+          "x": 300,
+          "y": 280
+        }
+      },
+      {
+        "id": "gen_1788880484790_6",
+        "type": "action",
+        "label": "Send Approval Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "to": "{{assigneeEmail}}",
+            "body": "<p>Sayin Kalite Muduru,</p><p><strong>{{triggerData.scopeDescription}}</strong> denetim plani onayinizi beklemektedir. Lutfen sisteme giris yaparak inceleyin.</p>",
+            "subject": "{{triggerData.scopeDescription}} — Denetim Planı Onayınızı Bekliyor",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 300,
+          "y": 400
+        }
+      },
+      {
+        "id": "gen_1788880484790_8",
+        "type": "trigger",
+        "label": "On AuditPlan Approved",
+        "trigger": {
+          "type": "manual",
+          "resourceName": "AuditPlan"
+        },
+        "position": {
+          "x": 700,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1788880484790_9",
+        "type": "action",
+        "label": "Send Completion Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "cc": "{{departmentEmails}}",
+            "to": "{{creatorEmail}}",
+            "body": "<p>{{triggerData.formNo}} numarali formun onay sureci tamamlanmistir.</p>",
+            "subject": "{{triggerData.formNo}} — Tum onaylar tamamlandi",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 700,
+          "y": 160
+        }
+      }
+    ],
+    "enabled": true,
+    "createdAt": "2026-09-08T15:14:44.789Z",
+    "updatedAt": "2026-09-08T15:14:44.789Z",
+    "variables": [
+      {
+        "name": "assigneeEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "creatorEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "departmentEmails",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "formLink",
+        "type": "string",
+        "defaultValue": ""
+      }
+    ],
+    "description": "Auto-generated approval flow for AuditPlan. Customize email templates and add conditions as needed.",
+    "resourceName": "AuditPlan"
+  },
+  {
+    "id": "flow-Finding-approval",
+    "name": "Finding Approval Flow",
+    "edges": [
+      {
+        "id": "gen_1788880484790_13",
+        "sourceNodeId": "gen_1788880484790_11",
+        "targetNodeId": "gen_1788880484790_12"
+      },
+      {
+        "id": "gen_1788880484790_15",
+        "branch": "true",
+        "sourceNodeId": "gen_1788880484790_12",
+        "targetNodeId": "gen_1788880484790_14"
+      },
+      {
+        "id": "gen_1788880484790_17",
+        "sourceNodeId": "gen_1788880484790_14",
+        "targetNodeId": "gen_1788880484790_16"
+      },
+      {
+        "id": "gen_1788880484790_20",
+        "sourceNodeId": "gen_1788880484790_18",
+        "targetNodeId": "gen_1788880484790_19"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "gen_1788880484790_11",
+        "type": "trigger",
+        "label": "On Finding Submit",
+        "trigger": {
+          "type": "on-field-change",
+          "fieldName": "status",
+          "resourceName": "Finding"
+        },
+        "position": {
+          "x": 300,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1788880484790_12",
+        "type": "condition",
+        "label": "Status = InProgress?",
+        "position": {
+          "x": 300,
+          "y": 160
+        },
+        "condition": {
+          "logic": "and",
+          "rules": [
+            {
+              "field": "triggerData.status",
+              "value": "2",
+              "operator": "equals"
+            }
+          ]
+        }
+      },
+      {
+        "id": "gen_1788880484790_14",
+        "type": "approval",
+        "label": "Finding Approval",
+        "approval": {
+          "steps": [
+            {
+              "name": "Birim Sorumlusu — Aksiyon Planlama",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                },
+                {
+                  "type": "revise",
+                  "label": "Revize Et",
+                  "requiredFields": [
+                    "revisionNote"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "UnitResponsible"
+            },
+            {
+              "name": "Birim Sorumlusu — Uygulama Başlatma",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                },
+                {
+                  "type": "revise",
+                  "label": "Revize Et",
+                  "requiredFields": [
+                    "revisionNote"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "UnitResponsible"
+            },
+            {
+              "name": "Kalite Müdürü — Kapanış Onayı",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Kapat"
+                },
+                {
+                  "type": "revise",
+                  "label": "Reddet (Revize)",
+                  "requiredFields": [
+                    "revisionNote"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "QualityManager"
+            }
+          ],
+          "onCompleteEvent": "Finding-approval-completed",
+          "trackRevisionHistory": true
+        },
+        "position": {
+          "x": 300,
+          "y": 280
+        }
+      },
+      {
+        "id": "gen_1788880484790_16",
+        "type": "action",
+        "label": "Send Approval Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "to": "{{assigneeEmail}}",
+            "body": "<p>Sayin onaycı,</p><p><strong>{{triggerData.title}}</strong> bulgusu onayinizi beklemektedir. Lutfen sisteme giris yaparak inceleyin.</p>",
+            "subject": "{{triggerData.title}} — Bulgu Onayınızı Bekliyor",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 300,
+          "y": 400
+        }
+      },
+      {
+        "id": "gen_1788880484790_18",
+        "type": "trigger",
+        "label": "On Finding Approved",
+        "trigger": {
+          "type": "manual",
+          "resourceName": "Finding"
+        },
+        "position": {
+          "x": 700,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1788880484790_19",
+        "type": "action",
+        "label": "Send Completion Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "cc": "{{departmentEmails}}",
+            "to": "{{creatorEmail}}",
+            "body": "<p>{{triggerData.formNo}} numarali formun onay sureci tamamlanmistir.</p>",
+            "subject": "{{triggerData.formNo}} — Tum onaylar tamamlandi",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 700,
+          "y": 160
+        }
+      }
+    ],
+    "enabled": true,
+    "createdAt": "2026-09-08T15:14:44.790Z",
+    "updatedAt": "2026-09-08T15:14:44.790Z",
+    "variables": [
+      {
+        "name": "assigneeEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "creatorEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "departmentEmails",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "formLink",
+        "type": "string",
+        "defaultValue": ""
+      }
+    ],
+    "description": "Auto-generated approval flow for Finding. Customize email templates and add conditions as needed.",
+    "resourceName": "Finding"
+  }
+]

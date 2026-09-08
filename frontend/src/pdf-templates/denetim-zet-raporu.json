@@ -1,0 +1,192 @@
+{
+  "id": "report-audit-1788880607495",
+  "name": "Denetim Özet Raporu",
+  "orientation": "portrait",
+  "pageSize": "a4",
+  "elements": [
+    {
+      "id": "pdf-mtstbqpz-0",
+      "type": "header",
+      "x": 20,
+      "y": 25,
+      "width": 170,
+      "height": 10,
+      "props": {
+        "text": "Denetim Özet Raporu",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-1",
+      "type": "divider",
+      "x": 20,
+      "y": 39,
+      "width": 170,
+      "height": 2,
+      "props": {
+        "lineColor": "#999999"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-2",
+      "type": "textbox",
+      "x": 20,
+      "y": 45,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Denetim Bilgileri",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-3",
+      "type": "textbox",
+      "x": 20,
+      "y": 56,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Audit Number: {{data.auditNumber}}",
+        "binding": "data.auditNumber",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-4",
+      "type": "textbox",
+      "x": 20,
+      "y": 66,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Planned Date: {{data.plannedDate}}",
+        "binding": "data.plannedDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-5",
+      "type": "textbox",
+      "x": 20,
+      "y": 76,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Actual Date: {{data.actualDate}}",
+        "binding": "data.actualDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-6",
+      "type": "textbox",
+      "x": 20,
+      "y": 86,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Status: {{data.status}}",
+        "binding": "data.status",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-7",
+      "type": "textbox",
+      "x": 20,
+      "y": 98,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Denetim Ekibi",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-8",
+      "type": "table",
+      "x": 20,
+      "y": 109,
+      "width": 170,
+      "height": 49,
+      "props": {
+        "binding": "data.auditTeamMembers",
+        "columns": [
+          {
+            "key": "role",
+            "label": "Role",
+            "width": 170
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-9",
+      "type": "textbox",
+      "x": 20,
+      "y": 162,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Bulgular",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtstbqpz-10",
+      "type": "table",
+      "x": 20,
+      "y": 173,
+      "width": 170,
+      "height": 63,
+      "props": {
+        "binding": "data.findings",
+        "columns": [
+          {
+            "key": "title",
+            "label": "Title",
+            "width": 56
+          },
+          {
+            "key": "dueDate",
+            "label": "Due Date",
+            "width": 56
+          },
+          {
+            "key": "status",
+            "label": "Status",
+            "width": 56
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    }
+  ],
+  "apiBinding": {
+    "method": "GET",
+    "url": "api/services/app/Audit/GetReportData?id={id}",
+    "params": [
+      {
+        "name": "id"
+      }
+    ]
+  },
+  "headerConfig": {
+    "enabled": true,
+    "text": "Denetim Özet Raporu",
+    "fontSize": 9
+  },
+  "pageNumberConfig": {
+    "enabled": true
+  }
+}
