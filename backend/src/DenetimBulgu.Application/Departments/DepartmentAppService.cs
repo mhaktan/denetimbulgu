@@ -15,6 +15,7 @@ using DenetimBulgu.Departments.Dto;
 using DenetimBulgu.Employees.Dto;
 using DenetimBulgu.Audits.Dto;
 using DenetimBulgu.Findings.Dto;
+using DenetimBulgu.Approvals.Dto;
 using DenetimBulgu.Authorization;
 using DenetimBulgu.Flows;
 
@@ -95,7 +96,7 @@ namespace DenetimBulgu.Departments
                         .GroupBy(x => new { Key = x.DepartmentId, Label = x.ParentDepartment == null ? null : x.ParentDepartment.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })

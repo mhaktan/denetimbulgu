@@ -16,6 +16,7 @@ using DenetimBulgu.AuditTeamMembers.Dto;
 using DenetimBulgu.CorrectiveActions.Dto;
 using DenetimBulgu.ActionProgressNotes.Dto;
 using DenetimBulgu.Evidences.Dto;
+using DenetimBulgu.Approvals.Dto;
 using DenetimBulgu.Authorization;
 using DenetimBulgu.Flows;
 
@@ -99,7 +100,7 @@ namespace DenetimBulgu.Employees
                         .GroupBy(x => new { Key = x.UserId, Label = x.User == null ? null : x.User.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -109,7 +110,7 @@ namespace DenetimBulgu.Employees
                         .GroupBy(x => new { Key = x.DepartmentId, Label = x.Department == null ? null : x.Department.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })

@@ -12,6 +12,7 @@ using DenetimBulgu.Entities;
 using DenetimBulgu.FindingLevels.Dto;
 using DenetimBulgu.Analytics.Dto;
 using DenetimBulgu.Findings.Dto;
+using DenetimBulgu.Approvals.Dto;
 using DenetimBulgu.Authorization;
 using DenetimBulgu.Flows;
 

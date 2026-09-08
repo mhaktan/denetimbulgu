@@ -254,7 +254,7 @@ namespace DenetimBulgu.Findings
                         .GroupBy(x => new { Key = x.AuditId, Label = x.Audit == null ? null : x.Audit.AuditNumber })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -264,7 +264,7 @@ namespace DenetimBulgu.Findings
                         .GroupBy(x => new { Key = x.FindingLevelId, Label = x.FindingLevel == null ? null : x.FindingLevel.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -274,7 +274,7 @@ namespace DenetimBulgu.Findings
                         .GroupBy(x => new { Key = x.DepartmentId, Label = x.Department == null ? null : x.Department.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -284,7 +284,7 @@ namespace DenetimBulgu.Findings
                         .GroupBy(x => new { Key = x.RequirementReferenceId, Label = x.RequirementReference == null ? null : x.RequirementReference.Title })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -309,41 +309,57 @@ namespace DenetimBulgu.Findings
                 switch (input.FromField + "|" + input.ToField)
                 {
                     case "DetectedDate|DueDate":
-                        return (decimal?)query
-                            .Where(x => x.DetectedDate != null && x.DueDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.DetectedDate.Value, x.DueDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsDetectedDateDueDate = query
+                            .Select(x => new { A = x.DetectedDate, B = x.DueDate })
+                            .ToList();
+                        if (pairsDetectedDateDueDate.Count == 0) return null;
+                        return (decimal)pairsDetectedDateDueDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "DetectedDate|ClosedDate":
-                        return (decimal?)query
-                            .Where(x => x.DetectedDate != null && x.ClosedDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.DetectedDate.Value, x.ClosedDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsDetectedDateClosedDate = query
+                            .Where(x => x.ClosedDate != null)
+                            .Select(x => new { A = x.DetectedDate, B = x.ClosedDate.Value })
+                            .ToList();
+                        if (pairsDetectedDateClosedDate.Count == 0) return null;
+                        return (decimal)pairsDetectedDateClosedDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "DueDate|DetectedDate":
-                        return (decimal?)query
-                            .Where(x => x.DueDate != null && x.DetectedDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.DueDate.Value, x.DetectedDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsDueDateDetectedDate = query
+                            .Select(x => new { A = x.DueDate, B = x.DetectedDate })
+                            .ToList();
+                        if (pairsDueDateDetectedDate.Count == 0) return null;
+                        return (decimal)pairsDueDateDetectedDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "DueDate|ClosedDate":
-                        return (decimal?)query
-                            .Where(x => x.DueDate != null && x.ClosedDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.DueDate.Value, x.ClosedDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsDueDateClosedDate = query
+                            .Where(x => x.ClosedDate != null)
+                            .Select(x => new { A = x.DueDate, B = x.ClosedDate.Value })
+                            .ToList();
+                        if (pairsDueDateClosedDate.Count == 0) return null;
+                        return (decimal)pairsDueDateClosedDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "ClosedDate|DetectedDate":
-                        return (decimal?)query
-                            .Where(x => x.ClosedDate != null && x.DetectedDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.ClosedDate.Value, x.DetectedDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsClosedDateDetectedDate = query
+                            .Where(x => x.ClosedDate != null)
+                            .Select(x => new { A = x.ClosedDate.Value, B = x.DetectedDate })
+                            .ToList();
+                        if (pairsClosedDateDetectedDate.Count == 0) return null;
+                        return (decimal)pairsClosedDateDetectedDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "ClosedDate|DueDate":
-                        return (decimal?)query
-                            .Where(x => x.ClosedDate != null && x.DueDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.ClosedDate.Value, x.DueDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsClosedDateDueDate = query
+                            .Where(x => x.ClosedDate != null)
+                            .Select(x => new { A = x.ClosedDate.Value, B = x.DueDate })
+                            .ToList();
+                        if (pairsClosedDateDueDate.Count == 0) return null;
+                        return (decimal)pairsClosedDateDueDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     default: return null;
                 }
             }

@@ -94,7 +94,7 @@ namespace DenetimBulgu.Evidences
                         .GroupBy(x => new { Key = x.CorrectiveActionId, Label = x.CorrectiveAction == null ? null : x.CorrectiveAction.ActionDescription })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -104,7 +104,7 @@ namespace DenetimBulgu.Evidences
                         .GroupBy(x => new { Key = x.EmployeeId, Label = x.Employee == null ? null : x.Employee.FullName })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })

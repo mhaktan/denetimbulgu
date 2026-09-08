@@ -240,7 +240,7 @@ namespace DenetimBulgu.CorrectiveActions
                         .GroupBy(x => new { Key = x.FindingId, Label = x.Finding == null ? null : x.Finding.Title })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -250,7 +250,7 @@ namespace DenetimBulgu.CorrectiveActions
                         .GroupBy(x => new { Key = x.EmployeeId, Label = x.Employee == null ? null : x.Employee.FullName })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -275,17 +275,23 @@ namespace DenetimBulgu.CorrectiveActions
                 switch (input.FromField + "|" + input.ToField)
                 {
                     case "TargetDate|ActualClosureDate":
-                        return (decimal?)query
-                            .Where(x => x.TargetDate != null && x.ActualClosureDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.TargetDate.Value, x.ActualClosureDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsTargetDateActualClosureDate = query
+                            .Where(x => x.ActualClosureDate != null)
+                            .Select(x => new { A = x.TargetDate, B = x.ActualClosureDate.Value })
+                            .ToList();
+                        if (pairsTargetDateActualClosureDate.Count == 0) return null;
+                        return (decimal)pairsTargetDateActualClosureDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "ActualClosureDate|TargetDate":
-                        return (decimal?)query
-                            .Where(x => x.ActualClosureDate != null && x.TargetDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.ActualClosureDate.Value, x.TargetDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsActualClosureDateTargetDate = query
+                            .Where(x => x.ActualClosureDate != null)
+                            .Select(x => new { A = x.ActualClosureDate.Value, B = x.TargetDate })
+                            .ToList();
+                        if (pairsActualClosureDateTargetDate.Count == 0) return null;
+                        return (decimal)pairsActualClosureDateTargetDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     default: return null;
                 }
             }

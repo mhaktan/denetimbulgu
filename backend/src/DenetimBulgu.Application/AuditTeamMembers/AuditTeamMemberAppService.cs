@@ -103,7 +103,7 @@ namespace DenetimBulgu.AuditTeamMembers
                         .GroupBy(x => new { Key = x.AuditId, Label = x.Audit == null ? null : x.Audit.AuditNumber })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -113,7 +113,7 @@ namespace DenetimBulgu.AuditTeamMembers
                         .GroupBy(x => new { Key = x.EmployeeId, Label = x.Employee == null ? null : x.Employee.FullName })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })

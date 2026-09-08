@@ -238,7 +238,7 @@ namespace DenetimBulgu.Audits
                         .GroupBy(x => new { Key = x.AuditPlanId, Label = x.AuditPlan == null ? null : x.AuditPlan.ScopeDescription })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -248,7 +248,7 @@ namespace DenetimBulgu.Audits
                         .GroupBy(x => new { Key = x.AuditTypeId, Label = x.AuditType == null ? null : x.AuditType.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -258,7 +258,7 @@ namespace DenetimBulgu.Audits
                         .GroupBy(x => new { Key = x.DepartmentId, Label = x.Department == null ? null : x.Department.Name })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -268,7 +268,7 @@ namespace DenetimBulgu.Audits
                         .GroupBy(x => new { Key = x.EmployeeId, Label = x.Employee == null ? null : x.Employee.FullName })
                         .Select(g => new GroupCountDto
                         {
-                            Key = g.Key.Key == null ? null : g.Key.Key.ToString(),
+                            Key = g.Key.Key.ToString(),
                             Label = g.Key.Label ?? "(bos)",
                             Count = g.Count(),
                         })
@@ -293,17 +293,23 @@ namespace DenetimBulgu.Audits
                 switch (input.FromField + "|" + input.ToField)
                 {
                     case "PlannedDate|ActualDate":
-                        return (decimal?)query
-                            .Where(x => x.PlannedDate != null && x.ActualDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.PlannedDate.Value, x.ActualDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsPlannedDateActualDate = query
+                            .Where(x => x.ActualDate != null)
+                            .Select(x => new { A = x.PlannedDate, B = x.ActualDate.Value })
+                            .ToList();
+                        if (pairsPlannedDateActualDate.Count == 0) return null;
+                        return (decimal)pairsPlannedDateActualDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     case "ActualDate|PlannedDate":
-                        return (decimal?)query
-                            .Where(x => x.ActualDate != null && x.PlannedDate != null)
-                            .Select(x => EF.Functions.DateDiffDay(x.ActualDate.Value, x.PlannedDate.Value))
-                            .DefaultIfEmpty()
-                            .Average();
+                    {
+                        var pairsActualDatePlannedDate = query
+                            .Where(x => x.ActualDate != null)
+                            .Select(x => new { A = x.ActualDate.Value, B = x.PlannedDate })
+                            .ToList();
+                        if (pairsActualDatePlannedDate.Count == 0) return null;
+                        return (decimal)pairsActualDatePlannedDate.Average(p => (p.B - p.A).TotalDays);
+                    }
                     default: return null;
                 }
             }
